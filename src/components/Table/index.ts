@@ -1,4 +1,8 @@
-type TColumn = { dataIndex: string; title: string };
+export type TColumn = {
+  dataIndex: string;
+  title: string;
+  render?: (e: any) => void;
+};
 
 export interface ITableProps {
   dataSource: Array<any>;
