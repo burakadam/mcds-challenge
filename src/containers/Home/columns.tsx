@@ -36,7 +36,7 @@ const COLUMNS = () => {
       render: (e: string) => <ColorText color={e} />,
     },
     {
-      title: 'EDIT',
+      title: '',
       dataIndex: '',
       render: () => <Button />,
     },

@@ -1,5 +1,7 @@
 import { Layout } from '@/components/Layout';
 import { Table } from '@/components/Table';
+import { carSelectors } from '@/store/car/selectors';
+import { useAppSelector } from '@/store/hooks';
 import COLUMNS from './columns';
 
 const d = [
@@ -15,8 +17,10 @@ const d = [
 ];
 
 function Home() {
+  const isListLoaded = useAppSelector(carSelectors.listLoaded);
   return (
     <Layout>
+      <p>{isListLoaded ? 'loaded' : 'loading'}</p>
       <Table columns={COLUMNS()} dataSource={d} />
     </Layout>
   );
