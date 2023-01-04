@@ -1,4 +1,5 @@
 import { Button } from '@/components/Button';
+import { ColorText } from '@/components/ColorText';
 import { _formatNumber } from '@/utils/formatNumber';
 
 const COLUMNS = () => {
@@ -32,6 +33,7 @@ const COLUMNS = () => {
     {
       title: 'COLOR',
       dataIndex: 'color',
+      render: (e: string) => <ColorText color={e} />,
     },
     {
       title: 'EDIT',
