@@ -1,0 +1,29 @@
+[
+  {
+    "timeStamp": "1672870421049",
+    "id": 1,
+    "carId": "CAR-HTK-123",
+    "inStock": true,
+    "hp": 125,
+    "price": 500000,
+    "color": "red"
+  },
+  {
+    "timeStamp": "1672870435132",
+    "id": 2,
+    "carId": "CAR-jTK-567",
+    "inStock": false,
+    "hp": 90,
+    "price": 300000,
+    "color": "blue"
+  },
+  {
+    "timeStamp": "1672870474449",
+    "id": 3,
+    "carId": "CAR-KTK-567",
+    "inStock": false,
+    "hp": 140,
+    "price": 500000,
+    "color": "black"
+  }
+]
