@@ -2,7 +2,7 @@ import { ITableProps } from '.';
 
 const Table = (props: ITableProps) => {
   return (
-    <div className='max-md:overflow-x-scroll'>
+    <div className='max-md:overflow-x-scroll bg-white'>
       <table className='w-full text-center max-md:w-auto md:table-fixed '>
         <thead>
           <tr className='bg-neutral-900 text-b1 text-white'>
@@ -18,7 +18,7 @@ const Table = (props: ITableProps) => {
             return (
               <tr
                 key={`row_${rowIndex}`}
-                className='border-b border-neutral-500'
+                className='border-b border-neutral-50'
               >
                 {props.columns.map((column, colIndex) => (
                   <td
