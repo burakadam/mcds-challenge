@@ -1,10 +1,9 @@
 import { ILayoutProps } from '.';
+import { Header } from '../Header';
 
 const Layout = (props: ILayoutProps) => (
   <div>
-    <header>
-      <a href='/'>HOME</a>
-    </header>
+    <Header />
     {props.children}
   </div>
 );
