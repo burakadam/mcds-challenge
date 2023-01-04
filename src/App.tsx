@@ -1,10 +1,11 @@
+import { Layout } from '@/components/Layout';
 import './index.css';
 
 function App() {
   return (
-    <div>
+    <Layout>
       <p className='text-3xl font-bold underline'>WELCOME</p>
-    </div>
+    </Layout>
   );
 }
 
