@@ -1,12 +1,9 @@
-import { Layout } from '@/components/Layout';
+import { RouterProvider } from 'react-router-dom';
+
 import './index.css';
 
-function App() {
-  return (
-    <Layout>
-      <p className='text-3xl font-bold underline'>WELCOME</p>
-    </Layout>
-  );
-}
+import router from './router';
+
+const App = () => <RouterProvider router={router} />;
 
 export default App;
