@@ -1,6 +1,7 @@
 import { Button } from '@/components/Button';
 import { ColorText } from '@/components/ColorText';
 import { _formatNumber } from '@/utils/formatNumber';
+import { Link } from 'react-router-dom';
 
 const COLUMNS = () => {
   return [
@@ -28,7 +29,7 @@ const COLUMNS = () => {
     {
       title: 'PRICE',
       dataIndex: 'price',
-      render: (e: number) => _formatNumber(e),
+      render: (e: number) => `${_formatNumber(e)} €`,
     },
     {
       title: 'COLOR',
@@ -37,8 +38,8 @@ const COLUMNS = () => {
     },
     {
       title: '',
-      dataIndex: '',
-      render: () => <Button />,
+      dataIndex: 'carId',
+      render: (id: string) => <Link to={`/detail/${id}`}>EDIT</Link>,
     },
   ];
 };

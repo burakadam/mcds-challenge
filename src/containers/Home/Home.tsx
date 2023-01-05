@@ -10,6 +10,7 @@ import { carSelectors } from '@/store/car/selectors';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 
 import COLUMNS from './columns';
+import { Title } from '@/components/Title';
 
 function Home() {
   const dispatch = useAppDispatch();
@@ -34,9 +35,7 @@ function Home() {
 
   return (
     <Layout>
-      <h2 className='text-lg font-bold text-blue-500 text-center my-4'>
-        CAR LIST
-      </h2>
+      <Title title='CAR LIST' />
       {carList ? (
         <Table columns={COLUMNS()} dataSource={carList} />
       ) : (
