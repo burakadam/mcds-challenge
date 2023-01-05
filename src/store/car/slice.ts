@@ -26,9 +26,10 @@ const carSlice = createSlice({
       state.carList = action.payload.data;
       state.loadings.list = false;
     },
-    getListDataError(state) {
+    getListDataError(state, action) {
       state.carList = [];
       state.loadings.list = false;
+      state.errors.list = action.payload.error;
     },
   },
 });

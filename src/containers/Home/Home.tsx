@@ -1,7 +1,11 @@
 import { Layout } from '@/components/Layout';
+import { Loading } from '@/components/Loading';
 import { Table } from '@/components/Table';
+import { fetchCarList } from '@/services/car/api';
+import { carActions } from '@/store/car';
 import { carSelectors } from '@/store/car/selectors';
-import { useAppSelector } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { useEffect } from 'react';
 import COLUMNS from './columns';
 
 const d = [
@@ -17,11 +21,34 @@ const d = [
 ];
 
 function Home() {
+  const dispatch = useAppDispatch();
   const isListLoaded = useAppSelector(carSelectors.listLoaded);
+  const carList = useAppSelector(carSelectors.carList);
+
+  useEffect(() => {
+    const getList = async () => {
+      dispatch(carActions.getListDataRequest());
+      const { success, error, data } = await fetchCarList();
+
+      if (success) dispatch(carActions.getListDataSuccess({ data }));
+      else dispatch(carActions.getListDataError({ error }));
+    };
+
+    getList();
+  }, [dispatch]);
+
+  if (isListLoaded) return <Loading />;
+
   return (
     <Layout>
-      <p>{isListLoaded ? 'loaded' : 'loading'}</p>
-      <Table columns={COLUMNS()} dataSource={d} />
+      <h2 className='text-lg font-bold text-blue-500 text-center my-4'>
+        CAR LIST
+      </h2>
+      {carList ? (
+        <Table columns={COLUMNS()} dataSource={carList} />
+      ) : (
+        <p className='text-center my-10 text-red-400'>List is empty</p>
+      )}
     </Layout>
   );
 }
