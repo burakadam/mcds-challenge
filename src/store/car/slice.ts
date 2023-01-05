@@ -1,5 +1,7 @@
-import { REDUCERS } from '@/constants/reducers';
 import { createSlice } from '@reduxjs/toolkit';
+
+import { REDUCERS } from '@/constants/reducers';
+
 import { ICarState } from '.';
 
 const initialState: ICarState = {

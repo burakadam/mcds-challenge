@@ -1,5 +1,6 @@
-import { ILayoutProps } from '.';
 import { Header } from '../Header';
+
+import { ILayoutProps } from '.';
 
 const Layout = (props: ILayoutProps) => (
   <div className='bg-neutral-50'>

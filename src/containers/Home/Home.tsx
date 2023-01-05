@@ -1,11 +1,14 @@
+import { useEffect } from 'react';
+
 import { Layout } from '@/components/Layout';
 import { Loading } from '@/components/Loading';
 import { Table } from '@/components/Table';
+
 import { fetchCarList } from '@/services/car/api';
 import { carActions } from '@/store/car';
 import { carSelectors } from '@/store/car/selectors';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { useEffect } from 'react';
+
 import COLUMNS from './columns';
 
 const d = [
