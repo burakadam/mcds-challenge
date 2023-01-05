@@ -11,22 +11,12 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 
 import COLUMNS from './columns';
 
-const d = [
-  {
-    timeStamp: '1672870421049',
-    id: 1,
-    carId: 'CAR-HTK-123',
-    inStock: true,
-    hp: 125,
-    price: 50000000,
-    color: 'red',
-  },
-];
-
 function Home() {
   const dispatch = useAppDispatch();
+
   const isListLoaded = useAppSelector(carSelectors.listLoaded);
   const carList = useAppSelector(carSelectors.carList);
+  const carListError = useAppSelector(carSelectors.carListError);
 
   useEffect(() => {
     const getList = async () => {
@@ -51,6 +41,9 @@ function Home() {
         <Table columns={COLUMNS()} dataSource={carList} />
       ) : (
         <p className='text-center my-10 text-red-400'>List is empty</p>
+      )}
+      {carListError && (
+        <p className='text-center my-10 text-red-400'>ERROR: {carListError}</p>
       )}
     </Layout>
   );

@@ -14,7 +14,7 @@ const fetchCarList = async (): Promise<ICarObject> => {
     return new Promise((resolve) =>
       setTimeout(() => {
         resolve({ success: true, data: DATA, error: null });
-      }, 0)
+      }, 1000)
     );
   } catch (error) {
     return {

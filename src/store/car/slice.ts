@@ -22,10 +22,12 @@ const carSlice = createSlice({
   reducers: {
     getListDataRequest(state) {
       state.carList = [];
+      state.errors.list = null;
       state.loadings.list = true;
     },
     getListDataSuccess(state, action) {
       state.carList = action.payload.data;
+      state.errors.list = null;
       state.loadings.list = false;
     },
     getListDataError(state, action) {
