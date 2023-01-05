@@ -32,6 +32,7 @@ const Detail = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.carId}
+              disabled
             />
           </Field>
           <Field htmlFor='car' text='Car'>
@@ -42,6 +43,7 @@ const Detail = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.car}
+              disabled
             />
           </Field>
           <Field htmlFor='inStock' text='In Stock'>
@@ -72,6 +74,16 @@ const Detail = () => {
                 {formik.values.hp}
               </span>
             </>
+          </Field>
+          <Field htmlFor='price' text='Price'>
+            <Input
+              id='price'
+              name='price'
+              type='number'
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.price}
+            />
           </Field>
           <Field htmlFor='firstName' text='Colors'>
             <>

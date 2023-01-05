@@ -3,7 +3,7 @@ import { ITableProps } from '.';
 const Table = (props: ITableProps) => {
   return (
     <>
-      <div className='max-md:overflow-x-scroll bg-white'>
+      <div className='max-md:overflow-x-scroll bg-white shadow-md'>
         <table className='w-full text-center max-sm:w-auto md:table-fixed '>
           <thead>
             <tr className='bg-neutral-900 text-b1 text-white'>
