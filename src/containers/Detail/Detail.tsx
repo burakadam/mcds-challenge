@@ -14,6 +14,8 @@ import { carSelectors } from '@/store/car/selectors';
 import { carActions } from '@/store/car';
 
 import { fetchCarDetail } from '@/services/car/api';
+import { DETAIL_SCHEMA } from './validation';
+import { ICarItem } from '@/types/carItem';
 
 const initialDetail = {
   carId: '0',
@@ -33,24 +35,38 @@ const Detail = () => {
 
   const detailLoaded = useSelector(carSelectors.detailLoaded);
   const detailData = useSelector(carSelectors.detailData);
+  const carList = useSelector(carSelectors.carList);
 
   useEffect(() => {
     const getDetail = async () => {
       dispatch(carActions.getDetailRequest());
-      const { success, error, data } = await fetchCarDetail(id as string);
+      const { success, error, data, all } = await fetchCarDetail(
+        id as string,
+        carList.length > 0 ? carList : undefined
+      );
 
-      if (success) dispatch(carActions.getDetailSuccess({ data }));
-      else dispatch(carActions.getDetailError({ error }));
+      if (success) {
+        dispatch(carActions.getDetailSuccess({ data }));
+        dispatch(carActions.getListDataSuccess({ data: all }));
+      } else dispatch(carActions.getDetailError({ error }));
     };
 
     if (id) getDetail();
   }, [dispatch, id]);
 
+  const handleSubmit = (data: ICarItem) => {
+    const newCarList = carList.map((item) => (item.carId === id ? data : item));
+
+    dispatch(carActions.saveDetail({ data: newCarList }));
+    navigate('/');
+  };
+
   const formik = useFormik({
     initialValues: detailData || initialDetail,
     enableReinitialize: true,
+    validationSchema: DETAIL_SCHEMA,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      handleSubmit(values);
     },
   });
 
@@ -118,14 +134,21 @@ const Detail = () => {
             </>
           </Field>
           <Field htmlFor='price' text='Price (Euro)'>
-            <Input
-              id='price'
-              name='price'
-              type='number'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.price}
-            />
+            <>
+              <Input
+                id='price'
+                name='price'
+                type='number'
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.price}
+              />
+              {formik.errors.price && formik.touched.price ? (
+                <span className='text-red-400 text-xs'>
+                  {formik.errors.price}
+                </span>
+              ) : null}
+            </>
           </Field>
           <Field htmlFor='firstName' text='Colors'>
             <>

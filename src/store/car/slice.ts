@@ -54,7 +54,12 @@ const carSlice = createSlice({
     cancelDetail(state) {
       state.detailData = null;
       state.loadings.detail = false;
+      state.errors.detail = null;
+    },
+    saveDetail(state, action) {
       state.loadings.detail = false;
+      state.errors.detail = null;
+      state.carList = action.payload.data;
     },
   },
 });

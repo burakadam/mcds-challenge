@@ -28,7 +28,10 @@ function Home() {
       else dispatch(carActions.getListDataError({ error }));
     };
 
-    getList();
+    if (carList.length < 1) getList(); // NOTE: if user comes back from edit carList is full with mock data
+
+    // NOTE: to mock data can not add carList to useEffect hook
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   if (isListLoaded) return <Loading />;
