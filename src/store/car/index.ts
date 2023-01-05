@@ -10,6 +10,7 @@ export interface ICarState {
     list: string | null;
     detail: string | null;
   };
+  detailData: ICarItem | null;
 }
 
 export * from './slice';

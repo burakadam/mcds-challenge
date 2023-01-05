@@ -1,4 +1,5 @@
 export interface ICarItem {
+  car: string;
   timeStamp: string;
   id: number;
   carId: string;

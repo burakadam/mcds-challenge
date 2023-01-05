@@ -1,23 +1,65 @@
+import { useFormik } from 'formik';
+
 import { Button } from '@/components/Button';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { Field, Input } from '@/components/Form';
 import { Layout } from '@/components/Layout';
 import { Title } from '@/components/Title';
-import { useFormik } from 'formik';
+import { Loading } from '@/components/Loading';
+
+import { carSelectors } from '@/store/car/selectors';
+import { carActions } from '@/store/car';
+
+import { fetchCarDetail } from '@/services/car/api';
+
+const initialDetail = {
+  carId: '0',
+  car: 'Mercedes',
+  inStock: false,
+  hp: 110,
+  price: 0,
+  color: 'red',
+  timeStamp: '0',
+  id: 0,
+};
 
 const Detail = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const detailLoaded = useSelector(carSelectors.detailLoaded);
+  const detailData = useSelector(carSelectors.detailData);
+
+  useEffect(() => {
+    const getDetail = async () => {
+      dispatch(carActions.getDetailRequest());
+      const { success, error, data } = await fetchCarDetail(id as string);
+
+      if (success) dispatch(carActions.getDetailSuccess({ data }));
+      else dispatch(carActions.getDetailError({ error }));
+    };
+
+    if (id) getDetail();
+  }, [dispatch, id]);
+
   const formik = useFormik({
-    initialValues: {
-      carId: '1',
-      car: 'Mercedes',
-      inStock: false,
-      hp: 110,
-      price: 100,
-      color: 'red',
-    },
+    initialValues: detailData || initialDetail,
+    enableReinitialize: true,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
   });
+
+  const handleCancel = () => {
+    dispatch(carActions.cancelDetail());
+    navigate('/');
+  };
+
+  if (detailLoaded) return <Loading />;
 
   return (
     <Layout>
@@ -75,7 +117,7 @@ const Detail = () => {
               </span>
             </>
           </Field>
-          <Field htmlFor='price' text='Price'>
+          <Field htmlFor='price' text='Price (Euro)'>
             <Input
               id='price'
               name='price'
@@ -93,6 +135,7 @@ const Detail = () => {
                 value='red'
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                checked={formik.values.color === 'red'}
               />
               <label htmlFor='red' className='text-sm ml-2 mr-4 text-red-400'>
                 Red
@@ -103,6 +146,7 @@ const Detail = () => {
                 value='black'
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                checked={formik.values.color === 'black'}
               />
               <label htmlFor='black' className='text-sm ml-2 mr-4'>
                 Black
@@ -113,6 +157,7 @@ const Detail = () => {
                 value='blue'
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                checked={formik.values.color === 'blue'}
               />
               <label htmlFor='blue' className='text-sm ml-2 mr-4 text-blue-500'>
                 Blue
@@ -120,8 +165,12 @@ const Detail = () => {
             </>
           </Field>
           <div className='mt-4 flex justify-end'>
-            <Button text='Cancel' className='mr-2 !bg-red-600' />
-            <Button text='Save' />
+            <Button
+              text='Cancel'
+              className='mr-2 !bg-red-600'
+              onClick={handleCancel}
+            />
+            <Button text='Save' type='submit' />
           </div>
         </form>
       </div>
