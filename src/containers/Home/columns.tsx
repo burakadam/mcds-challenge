@@ -1,4 +1,3 @@
-import { Button } from '@/components/Button';
 import { ColorText } from '@/components/ColorText';
 import { _formatNumber } from '@/utils/formatNumber';
 import { Link } from 'react-router-dom';
